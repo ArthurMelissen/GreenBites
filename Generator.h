@@ -26,6 +26,16 @@ public:
 		int quantity;
 	};
 	
+	struct Package {
+		QString uuid;
+		int quantity;
+	};
+	
+	struct Shipment {
+		QString uuid;
+		QString address;
+	};
+	
 	// General HTTP infra
 	void run();
 	void get(const QString& path, std::function<void(QNetworkReply*)> func);
@@ -36,6 +46,8 @@ public:
 	void getPartners();
 	void getProducts();
 	void getPackageTypes();
+	void getPackages();
+	void getShipments();
 	
 public slots:
 	void process();
@@ -51,6 +63,8 @@ private:
 	std::vector<Partner> _partners;
 	std::vector<Product> _products;
 	std::vector<PackageType> _packageTypes;
+	std::vector<Package> _packages;
+	std::vector<Shipment> _shipments;
 	
 	QNetworkAccessManager _nam;
 	QEventLoop _loop;

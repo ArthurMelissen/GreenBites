@@ -121,8 +121,45 @@ void Generator::getProducts()
 
 void Generator::getPackageTypes()
 {
-	std::cout << "getPackageTypes()" << std::endl;
-	_loop.quit();
+	getArray("/ds/package_types", [&] (QJsonObject object) {
+		if(!object.contains("id") || !object.contains("name") || !object.contains("quantity"))
+			throw std::runtime_error("Package type JSON object is invalid");
+		const QString uuid = object.value("id").toString();
+		const QString name = object.value("name").toString();
+		const int quantity = object.value("quantity").toInt();
+		_packageTypes.emplace_back(PackageType{ uuid, name, quantity });
+	}, [&] {
+		std::cout << "Parsed package types: " << _packageTypes.size() << std::endl;
+		getPackages();
+	});
+}
+
+void Generator::getPackages()
+{
+	getArray("/ds/packages", [&] (QJsonObject object) {
+		if(!object.contains("id") || !object.contains("quantity"))
+			throw std::runtime_error("Package type JSON object is invalid");
+		const QString uuid = object.value("id").toString();
+		const int quantity = object.value("quantity").toInt();
+		_packages.emplace_back(Package{ uuid, quantity });
+	}, [&] {
+		std::cout << "Parsed packages: " << _packages.size() << std::endl;
+		getShipments();
+	});
+}
+
+void Generator::getShipments()
+{
+	getArray("/ds/shipments", [&] (QJsonObject object) {
+		if(!object.contains("id") || !object.contains("address"))
+			throw std::runtime_error("Shipment JSON object is invalid");
+		const QString uuid = object.value("id").toString();
+		const QString address = object.value("address").toString();
+		_shipments.emplace_back(Shipment{ uuid, address });
+	}, [&] {
+		std::cout << "Parsed shipments: " << _shipments.size() << std::endl;
+		_loop.quit();
+	});
 }
 
 void Generator::process()
