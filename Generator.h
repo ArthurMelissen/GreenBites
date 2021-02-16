@@ -3,6 +3,7 @@
 #include <QNetworkAccessManager>
 #include <QEventLoop>
 #include <vector>
+#include <iostream>
 
 class Generator : public QObject
 {
@@ -13,27 +14,47 @@ public:
 	struct Partner {
 		QString uuid;
 		QString name;
+		
+		void print() {
+			std::cout << uuid.toStdString() << ": " << name.toStdString() << "\n";
+		}
 	};
 
 	struct Product {
 		QString uuid;
 		QString name;
+		
+		void print() {
+			std::cout << uuid.toStdString() << ": " << name.toStdString() << "\n";
+		}
 	};
 	
 	struct PackageType {
 		QString uuid;
 		QString name;
 		int quantity;
+		
+		void print() {
+			std::cout << uuid.toStdString() << ": " << name.toStdString() << "(" << quantity << ")\n";
+		}
 	};
 	
 	struct Package {
 		QString uuid;
 		int quantity;
+		
+		void print() {
+			std::cout << uuid.toStdString() << ": " << quantity << "\n";
+		}
 	};
 	
 	struct Shipment {
 		QString uuid;
 		QString address;
+		
+		void print() {
+			std::cout << uuid.toStdString() << ": " << address.toStdString() << "\n";
+		}
 	};
 	
 	// General HTTP infra

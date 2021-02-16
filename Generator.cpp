@@ -100,7 +100,9 @@ void Generator::getPartners()
 		const QString name = object.value("name").toString();
 		_partners.emplace_back(Partner{ uuid, name });
 	}, [&] {
-		std::cout << "Parsed partners: " << _partners.size() << std::endl;
+		std::cout << "========= Parsed partners ========= " << _partners.size() << std::endl;
+		for(auto& p: _partners)
+			p.print();
 		getProducts();
 	});
 }
@@ -114,7 +116,9 @@ void Generator::getProducts()
 		const QString name = object.value("name").toString();
 		_products.emplace_back(Product{ uuid, name });
 	}, [&] {
-		std::cout << "Parsed products: " << _products.size() << std::endl;
+		std::cout << "========= Parsed products ========= " << _products.size() << std::endl;
+		for(auto& p: _products)
+			p.print();
 		getPackageTypes();
 	});
 }
@@ -129,7 +133,9 @@ void Generator::getPackageTypes()
 		const int quantity = object.value("quantity").toInt();
 		_packageTypes.emplace_back(PackageType{ uuid, name, quantity });
 	}, [&] {
-		std::cout << "Parsed package types: " << _packageTypes.size() << std::endl;
+		std::cout << "========= Parsed package types ========= " << _packageTypes.size() << std::endl;
+		for(auto& p: _packageTypes)
+			p.print();
 		getPackages();
 	});
 }
@@ -143,7 +149,9 @@ void Generator::getPackages()
 		const int quantity = object.value("quantity").toInt();
 		_packages.emplace_back(Package{ uuid, quantity });
 	}, [&] {
-		std::cout << "Parsed packages: " << _packages.size() << std::endl;
+		std::cout << "========= Parsed packages ========= " << _packages.size() << std::endl;
+		for(auto& p: _packages)
+			p.print();
 		getShipments();
 	});
 }
@@ -157,7 +165,9 @@ void Generator::getShipments()
 		const QString address = object.value("address").toString();
 		_shipments.emplace_back(Shipment{ uuid, address });
 	}, [&] {
-		std::cout << "Parsed shipments: " << _shipments.size() << std::endl;
+		std::cout << "========= Parsed shipments ========= " << _shipments.size() << std::endl;
+		for(auto& s: _shipments)
+			s.print();
 		_loop.quit();
 	});
 }
