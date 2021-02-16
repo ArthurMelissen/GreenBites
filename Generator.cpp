@@ -20,8 +20,6 @@ void Generator::run()
 
 void Generator::authenticate()
 {
-	std::cout << "Authentication 100" << std::endl;
-
 	// Send an authentication request.
 	QJsonObject object {
 		{"method", "apk"},
@@ -31,21 +29,28 @@ void Generator::authenticate()
 	
 	QNetworkRequest request(_jexiaProjectUrl + "/auth");
 	QNetworkReply* reply = _nam.post(request, QJsonDocument(object).toJson());
-	QObject::connect(reply, &QNetworkReply::finished, [reply] () { 
-		std::cout << "Authentication finished: " << reply->isFinished() << " running: " << reply->isRunning() << std::endl;
-		const QString contents = QString::fromUtf8(reply->readAll());
-		std::cout << "Contents:\n" << contents.toStdString();
+	QObject::connect(reply, &QNetworkReply::finished, [this, reply] () { 
+		auto doc = QJsonDocument::fromJson(reply->readAll());
+		if(!doc.isObject())
+			throw std::runtime_error("Authentication reply is not a JSON object");
+		const auto object = doc.object();
+		if(!object.contains("access_token"))
+			throw std::runtime_error("Authentication JSON object must contain access_token");
+		if(!object.contains("refresh_token"))
+			throw std::runtime_error("Authentication JSON object must contain refresh_token");
+		_accessToken = object.value("access_token").toString();
+		_refreshToken = object.value("refresh_token").toString();
+		if(_accessToken.isEmpty() || _refreshToken.isEmpty())
+			throw std::runtime_error("One of the tokens is empty");
+		
+		// The next step
+		queryPartners();
 	});
-	
-	// The next step
-//	queryPartners(); 
-
-	std::cout << "Authentication 999" << std::endl;
 }
 
 void Generator::queryPartners()
 {
-	std::cout << "Querying partners" << std::endl;
+	std::cout << "Query partners - 100" << std::endl;
 	
 	QNetworkRequest request(_jexiaProjectUrl + "/ds/partners");
 	QNetworkReply* reply = _nam.get(request);
@@ -55,7 +60,7 @@ void Generator::queryPartners()
 		std::cout << "Contents:\n" << contents.toStdString();
 	});
 	
-	std::cout << "Querying partners finished" << std::endl;
+	std::cout << "Query partners - 999" << std::endl;
 }
 
 void Generator::process()

@@ -27,6 +27,9 @@ private:
 	const QString _jexiaKey;
 	const QString _jexiaSecret;
 	
+	QString _accessToken;
+	QString _refreshToken;
+	
 	QNetworkAccessManager _nam;
 	State _state = QueryPartners;
 };
