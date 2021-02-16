@@ -16,6 +16,7 @@ public:
 	};
 
 	void run();
+	void authenticate();
 	void queryPartners();
 	
 public slots:
