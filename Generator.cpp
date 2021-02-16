@@ -54,7 +54,7 @@ void Generator::authenticate()
 			throw std::runtime_error("One of the tokens is empty");
 		
 		// The next step
-		queryPartners();
+		getPartners();
 	});
 }
 
@@ -65,48 +65,46 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> fun
 	
 	QNetworkReply* reply = _nam.get(request);
 	QObject::connect(reply, &QNetworkReply::finished, [func, reply] {
+		if(!reply->isFinished())
+			throw std::runtime_error("HTTP Reply is not finished");
+		if(reply->isRunning())
+			throw std::runtime_error("HTTP Reply is still running");
 		if(reply->error() != QNetworkReply::NoError)
 			throw std::runtime_error("HTTP Request failed");
 		func(reply);
 	});
 }
 
-void Generator::queryPartners()
+void Generator::getPartners()
 {
 	get("/ds/partners", [&] (QNetworkReply* reply) { 
-		std::cout << "Querying partners replied: finished: " << reply->isFinished() << " running: " << reply->isRunning() << std::endl;
 		const QByteArray result = reply->readAll();
-		const QString contents = QString::fromUtf8(result);
-		std::cout << "Contents:\n" << contents.toStdString();
-
-		parsePartners(result);
+		const auto doc = QJsonDocument::fromJson(result);
+		if(!doc.isArray())
+			throw std::runtime_error("Partners is not a json array");
+		const auto array = doc.array();
+		for(const QJsonValue& element: array) {
+			if(!element.isObject())
+				throw std::runtime_error("Element is not an object");
+			const auto object = element.toObject();
+			if(!object.contains("name"))
+				throw std::runtime_error("Authentication JSON object must contain access_token");
+			const QString uuid = object.value("id").toString();
+			const QString name = object.value("name").toString();
+			_partners.emplace_back(Partner{ uuid, name });
+			
+			getProducts();
+		}
+		std::cout << "Parsed partners: " << _partners.size() << std::endl;
 	});
 }
 
-void Generator::parsePartners(const QByteArray& result)
+void Generator::getProducts()
 {
-	const auto doc = QJsonDocument::fromJson(result);
-	if(!doc.isArray())
-		throw std::runtime_error("Partners is not a json array");
-	const auto array = doc.array();
-	for(const QJsonValue& element: array) {
-		if(!element.isObject())
-			throw std::runtime_error("Element is not an object");
-		const auto object = element.toObject();
-		if(!object.contains("name"))
-			throw std::runtime_error("Authentication JSON object must contain access_token");
-		const QString uuid = object.value("id").toString();
-		const QString name = object.value("name").toString();
-		_partners.emplace_back(Partner{ uuid, name });
-		
-		queryProducts();
-	}
-	std::cout << "Parsed partners: " << _partners.size() << std::endl;
-}
-
-void Generator::queryProducts()
-{
-	
+	get("/ds/products", [&] (QNetworkReply* reply) {
+		const QByteArray result = reply->readAll();
+		std::cout << "parseProducts:\n" << QString::fromUtf8(result).toStdString() + "\n\n";
+	});
 }
 
 void Generator::process()

@@ -10,12 +10,6 @@ Q_OBJECT
 public:
 	Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, const QString& jexiaSecret);
 	
-	enum State {
-		QueryPartners,
-		GeneratePartners,
-		Finished
-	};
-	
 	struct Partner {
 		QString uuid;
 		QString name;
@@ -24,9 +18,8 @@ public:
 	void run();
 	void get(const QString& path, std::function<void(QNetworkReply*)> func);
 	void authenticate();
-	void queryPartners();
-	void parsePartners(const QByteArray& result);
-	void queryProducts();
+	void getPartners();
+	void getProducts();
 	
 public slots:
 	void process();
@@ -42,6 +35,5 @@ private:
 	std::vector<Partner> _partners;
 	
 	QNetworkAccessManager _nam;
-	State _state = QueryPartners;
 };
 
