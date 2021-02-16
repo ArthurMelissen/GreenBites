@@ -89,8 +89,11 @@ void Generator::parsePartners(const QByteArray& result)
 		const auto object = element.toObject();
 		if(!object.contains("name"))
 			throw std::runtime_error("Authentication JSON object must contain access_token");
-		_partners.emplace_back(Partner{ object.value("name").toString() });
+		const QString uuid = object.value("id").toString();
+		const QString name = object.value("name").toString();
+		_partners.emplace_back(Partner{ uuid, name });
 	}
+	std::cout << "Parsed partners: " << _partners.size() << std::endl;
 }
 
 void Generator::process()

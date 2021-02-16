@@ -17,6 +17,7 @@ public:
 	};
 	
 	struct Partner {
+		QString uuid;
 		QString name;
 	};
 
