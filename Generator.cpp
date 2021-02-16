@@ -63,10 +63,10 @@ void Generator::queryPartners()
 	std::cout << "Query partners - 100" << std::endl;
 	
 	QNetworkRequest request(_jexiaProjectUrl + "/ds/partners");
-	request.setRawHeader("Authorization", _accessToken.toUtf8());
+	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
 	
 	QNetworkReply* reply = _nam.get(request);
-	QObject::connect(reply, &QNetworkReply::finished, [&] () { 
+	QObject::connect(reply, &QNetworkReply::finished, [&, reply] () { 
 		std::cout << "Querying partners replied: finished: " << reply->isFinished() << " running: " << reply->isRunning() << std::endl;
 		const QByteArray result = reply->readAll();
 		const QString contents = QString::fromUtf8(result);
