@@ -22,9 +22,11 @@ public:
 	};
 
 	void run();
+	void get(const QString& path, std::function<void(QNetworkReply*)> func);
 	void authenticate();
 	void queryPartners();
 	void parsePartners(const QByteArray& result);
+	void queryProducts();
 	
 public slots:
 	void process();

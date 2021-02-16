@@ -58,23 +58,29 @@ void Generator::authenticate()
 	});
 }
 
-void Generator::queryPartners()
+void Generator::get(const QString& path, std::function<void(QNetworkReply*)> func)
 {
-	std::cout << "Query partners - 100" << std::endl;
-	
-	QNetworkRequest request(_jexiaProjectUrl + "/ds/partners");
+	QNetworkRequest request(_jexiaProjectUrl + path);
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
 	
 	QNetworkReply* reply = _nam.get(request);
-	QObject::connect(reply, &QNetworkReply::finished, [&, reply] () { 
+	QObject::connect(reply, &QNetworkReply::finished, [func, reply] {
+		if(reply->error() != QNetworkReply::NoError)
+			throw std::runtime_error("HTTP Request failed");
+		func(reply);
+	});
+}
+
+void Generator::queryPartners()
+{
+	get("/ds/partners", [&] (QNetworkReply* reply) { 
 		std::cout << "Querying partners replied: finished: " << reply->isFinished() << " running: " << reply->isRunning() << std::endl;
 		const QByteArray result = reply->readAll();
 		const QString contents = QString::fromUtf8(result);
 		std::cout << "Contents:\n" << contents.toStdString();
+
 		parsePartners(result);
 	});
-	
-	std::cout << "Query partners - 999" << std::endl;
 }
 
 void Generator::parsePartners(const QByteArray& result)
@@ -92,8 +98,15 @@ void Generator::parsePartners(const QByteArray& result)
 		const QString uuid = object.value("id").toString();
 		const QString name = object.value("name").toString();
 		_partners.emplace_back(Partner{ uuid, name });
+		
+		queryProducts();
 	}
 	std::cout << "Parsed partners: " << _partners.size() << std::endl;
+}
+
+void Generator::queryProducts()
+{
+	
 }
 
 void Generator::process()
