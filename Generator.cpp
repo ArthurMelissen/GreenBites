@@ -23,8 +23,7 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 void Generator::run()
 {
 	QTimer::singleShot(10, [&] { authenticate(); });
-	QEventLoop loop;
-	loop.exec();
+	_loop.exec();
 }
 
 void Generator::authenticate()
@@ -75,36 +74,55 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> fun
 	});
 }
 
-void Generator::getPartners()
+void Generator::getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally)
 {
-	get("/ds/partners", [&] (QNetworkReply* reply) { 
+	get(path, [apply, finally] (QNetworkReply* reply) {
 		const QByteArray result = reply->readAll();
 		const auto doc = QJsonDocument::fromJson(result);
 		if(!doc.isArray())
-			throw std::runtime_error("Partners is not a json array");
+			throw std::runtime_error("Document is not a json array");
 		const auto array = doc.array();
 		for(const QJsonValue& element: array) {
 			if(!element.isObject())
 				throw std::runtime_error("Element is not an object");
-			const auto object = element.toObject();
-			if(!object.contains("name"))
-				throw std::runtime_error("Authentication JSON object must contain access_token");
-			const QString uuid = object.value("id").toString();
-			const QString name = object.value("name").toString();
-			_partners.emplace_back(Partner{ uuid, name });
-			
-			getProducts();
+			apply(element.toObject());
 		}
+		finally();
+	});
+}
+
+void Generator::getPartners()
+{
+	getArray("/ds/partners", [&] (QJsonObject object) { 
+		if(!object.contains("id") || !object.contains("name"))
+			throw std::runtime_error("Partner JSON object is invalid");
+		const QString uuid = object.value("id").toString();
+		const QString name = object.value("name").toString();
+		_partners.emplace_back(Partner{ uuid, name });
+	}, [&] {
 		std::cout << "Parsed partners: " << _partners.size() << std::endl;
+		getProducts();
 	});
 }
 
 void Generator::getProducts()
 {
-	get("/ds/products", [&] (QNetworkReply* reply) {
-		const QByteArray result = reply->readAll();
-		std::cout << "parseProducts:\n" << QString::fromUtf8(result).toStdString() + "\n\n";
+	getArray("/ds/products", [&] (QJsonObject object) {
+		if(!object.contains("id") || !object.contains("name"))
+			throw std::runtime_error("Product JSON object is invalid");
+		const QString uuid = object.value("id").toString();
+		const QString name = object.value("name").toString();
+		_products.emplace_back(Product{ uuid, name });
+	}, [&] {
+		std::cout << "Parsed products: " << _products.size() << std::endl;
+		getPackageTypes();
 	});
+}
+
+void Generator::getPackageTypes()
+{
+	std::cout << "getPackageTypes()" << std::endl;
+	_loop.quit();
 }
 
 void Generator::process()

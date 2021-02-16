@@ -15,11 +15,27 @@ public:
 		QString name;
 	};
 
+	struct Product {
+		QString uuid;
+		QString name;
+	};
+	
+	struct PackageType {
+		QString uuid;
+		QString name;
+		int quantity;
+	};
+	
+	// General HTTP infra
 	void run();
 	void get(const QString& path, std::function<void(QNetworkReply*)> func);
+	void getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally);
 	void authenticate();
+	
+	// Model specific functions
 	void getPartners();
 	void getProducts();
+	void getPackageTypes();
 	
 public slots:
 	void process();
@@ -33,7 +49,10 @@ private:
 	QString _refreshToken;
 	
 	std::vector<Partner> _partners;
+	std::vector<Product> _products;
+	std::vector<PackageType> _packageTypes;
 	
 	QNetworkAccessManager _nam;
+	QEventLoop _loop;
 };
 
