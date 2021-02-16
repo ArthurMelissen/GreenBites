@@ -2,6 +2,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QEventLoop>
+#include <vector>
 
 class Generator : public QObject
 {
@@ -14,10 +15,15 @@ public:
 		GeneratePartners,
 		Finished
 	};
+	
+	struct Partner {
+		QString name;
+	};
 
 	void run();
 	void authenticate();
 	void queryPartners();
+	void parsePartners(const QByteArray& result);
 	
 public slots:
 	void process();
@@ -29,6 +35,8 @@ private:
 	
 	QString _accessToken;
 	QString _refreshToken;
+	
+	std::vector<Partner> _partners;
 	
 	QNetworkAccessManager _nam;
 	State _state = QueryPartners;
