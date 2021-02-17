@@ -26,8 +26,9 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 		[&] { getPackageTypes(); },
 		[&] { getPackages(); },
 		[&] { getShipments(); },
-		[&] { createPartners(); },
-		[&] { createProducts(); }
+//		[&] { createPartners(); },
+//		[&] { createProducts(); },
+		[&] { deleteProducts(); }
 	};
 }
 
@@ -151,18 +152,26 @@ void Generator::getProducts()
 	});
 }
 
+// From Rein
+// https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/test?
+// cond=%5B%7B%22field%22%3A%22id%22%7D%2C%22%3D%22%2C%222a51593d-e99f-4025-b20b-159e226fc47d%22%5D
+
+
 void Generator::deleteProducts()
 {
 	// A condition is required
-	QNetworkRequest request(_jexiaProjectUrl + "/ds/products");
+	const QString condition = "[{\"field\":\"id\"},\"=\",\"2a51593d-e99f-4025-b20b-159e226fc47d\"]";
+	QNetworkRequest request(_jexiaProjectUrl + "/ds/products?cond=" + QUrl::toPercentEncoding(condition));
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
-//	request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/x-www-form-urlencoded"));
-	QJsonArray array;
-	for(auto& p: _products)
-		array.append(QJsonObject{{"id", p.uuid}});
-	const QByteArray body = QJsonDocument(array).toJson();
-	std::cout << QString::fromUtf8(body).toStdString() << std::endl;
-	auto reply = _nam.sendCustomRequest(request, "DELETE", body);
+ 	auto reply = _nam.deleteResource(request);
+	
+	// This is in the case where the body would have contained something.
+// 	QJsonArray array;
+// 	for(auto& p: _products)
+// 		array.append(QJsonObject{{"id", p.uuid}});
+// 	const QByteArray body = QJsonDocument(array).toJson();
+// 	std::cout << QString::fromUtf8(body).toStdString() << std::endl;
+// 	auto reply = _nam.sendCustomRequest(request, "DELETE", body);
 
 	QObject::connect(reply, &QNetworkReply::finished, [&, reply] {
 		std::cout << "Delete reply finished\n";
