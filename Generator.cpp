@@ -178,21 +178,17 @@ void Generator::deleteProductsJob()
 	}
 	
 	// A condition is required
-	const QString productUuid = _products.front().uuid;
-	std::cout << ("Deleting product " + productUuid + "\n").toStdString();
-	const QString condition = "[{\"field\":\"id\"},\"=\",\"" + productUuid + "\"]";
+// 	const QString productUuid = _products.front().uuid;
+// 	std::cout << ("Deleting product " + productUuid + "\n").toStdString();
+// 	const QString condition = "[{\"field\":\"id\"},\"=\",\"" + productUuid + "\"]";
+	
+	std::cout << "Deleting all products\n";
+	const QString condition = "[1,\"=\",1]";
+
 	QNetworkRequest request(_jexiaProjectUrl + "/ds/products?cond=" + QUrl::toPercentEncoding(condition));
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
  	auto reply = _nam.deleteResource(request);
 	
-	// This is in the case where the body would have contained something.
-// 	QJsonArray array;
-// 	for(auto& p: _products)
-// 		array.append(QJsonObject{{"id", p.uuid}});
-// 	const QByteArray body = QJsonDocument(array).toJson();
-// 	std::cout << QString::fromUtf8(body).toStdString() << std::endl;
-// 	auto reply = _nam.sendCustomRequest(request, "DELETE", body);
-
 	QObject::connect(reply, &QNetworkReply::finished, [&, reply] {
 		std::cout << "Delete reply finished\n";
 		if(!reply->isFinished())
