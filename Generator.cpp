@@ -68,8 +68,13 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> rep
 			throw std::runtime_error("HTTP Reply is not finished");
 		if(reply->isRunning())
 			throw std::runtime_error("HTTP Reply is still running");
-		if(reply->error() != QNetworkReply::NoError)
-			throw std::runtime_error("HTTP Request failed");
+		if(reply->error() != QNetworkReply::NoError) {
+			std::cout << "HTTP Request failed:\n" << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			const QString errorString = reply->errorString();
+			const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
+			throw std::runtime_error(s.toStdString());
+		}
 		replyParser(reply);
 	});
 }
@@ -187,7 +192,9 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 		if(reply->error() != QNetworkReply::NoError) {
 			std::cout << "HTTP Request failed:\n" << std::endl;
 			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
-			throw std::runtime_error("HTTP Request failed");
+			const QString errorString = reply->errorString();
+			const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
+			throw std::runtime_error(s.toStdString());
 		}
 		replyParser(reply);
 	});
