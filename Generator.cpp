@@ -222,7 +222,7 @@ void Generator::postProducts()
 {
 	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
-	const size_t batchSize = 2;
+	const size_t batchSize = 200;
 	
 	if(_products.size() < _targetProductsSize) {
 		const auto generateProduct = [&] {
