@@ -7,6 +7,7 @@
 #include <QAuthenticator>
 #include <QJsonArray>
 #include <QThread>
+#include <QScopedPointer>
 
 Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, const QString& jexiaSecret)
 : _jexiaProjectUrl(jexiaProjectUrl)
@@ -83,6 +84,7 @@ void Generator::authenticate()
 	request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/x-www-form-urlencoded"));
 	QNetworkReply* reply = _nam.post(request, QJsonDocument(object).toJson());
 	QObject::connect(reply, &QNetworkReply::finished, [this, reply] () { 
+		QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> r(reply);
 		auto doc = QJsonDocument::fromJson(reply->readAll());
 		if(!doc.isObject())
 			throw std::runtime_error("Authentication reply is not a JSON object");
@@ -108,6 +110,7 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> rep
 	
 	QNetworkReply* reply = _nam.get(request);
 	QObject::connect(reply, &QNetworkReply::finished, [replyParser, reply] {
+		QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> r(reply);
 		if(!reply->isFinished())
 			throw std::runtime_error("HTTP Reply is not finished");
 		if(reply->isRunning())
@@ -214,6 +217,7 @@ void Generator::deleteAllProductsJob()
  	auto reply = _nam.deleteResource(request);
 	
 	QObject::connect(reply, &QNetworkReply::finished, [&, reply] {
+		QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> r(reply);
 		std::cout << "Delete reply finished\n" << std::flush;
 		if(!reply->isFinished())
 			throw std::runtime_error("HTTP Reply is not finished");
@@ -287,6 +291,7 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 	
 	QNetworkReply* reply = _nam.post(request, data);
 	QObject::connect(reply, &QNetworkReply::finished, [replyParser, reply] {
+		QScopedPointer<QNetworkReply, QScopedPointerDeleteLater> r(reply);
 		if(!reply->isFinished())
 			throw std::runtime_error("HTTP Reply is not finished");
 		if(reply->isRunning())
