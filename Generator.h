@@ -95,7 +95,7 @@ private:
 	std::vector<Package> _packages;
 	std::vector<Shipment> _shipments;
 	
-	quint64 _targetProductsSize = 3;
+	quint64 _targetProductsSize = 8;
 	
 	QNetworkAccessManager _nam;
 	QEventLoop _loop;

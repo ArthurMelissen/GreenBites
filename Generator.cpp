@@ -222,17 +222,31 @@ void Generator::postProducts()
 {
 	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
+	const size_t batchSize = 2;
+	
 	if(_products.size() < _targetProductsSize) {
-		QString name;
-		for(size_t i=0; i < 20; i++)
-			name.append(base36[_randomGenerator.bounded(0, 35)]);
-		QJsonObject o {{"name", name}};
-		const QByteArray data = QJsonDocument(o).toJson();
+		const auto generateProduct = [&] {
+			QString name;
+			for(size_t i=0; i < 20; i++)
+				name.append(base36[_randomGenerator.bounded(0, 35)]);
+			return QJsonObject {{"name", name}};
+		};
+	
+		QByteArray data;
+		if(batchSize == 1) {
+			data = QJsonDocument(generateProduct()).toJson();
+		} else {
+			QJsonArray array;
+			for(size_t i=0; i < batchSize; i++)
+				array.append(generateProduct());
+			data = QJsonDocument(array).toJson();
+		}
+		
 		std::cout << QString::fromUtf8(data).toStdString() << "\n";
 		post("/ds/products", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
 			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
-			postProducts();
+			_loop.quit();
 		});
 	} else {
 		_loop.quit();
