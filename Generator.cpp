@@ -11,6 +11,7 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 : _jexiaProjectUrl(jexiaProjectUrl)
 , _jexiaKey(jexiaKey)
 , _jexiaSecret(jexiaSecret)
+, _randomGenerator(QRandomGenerator::securelySeeded())
 { 
 //	void QNetworkAccessManager::authenticationRequired(QNetworkReply *reply, QAuthenticator *authenticator)
 
@@ -210,7 +211,28 @@ void Generator::postPartners()
 		post("/ds/partners", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
 			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
-			_loop.quit();
+			postProducts();
+		});
+	} else {
+		postProducts();
+	}
+}
+
+void Generator::postProducts()
+{
+	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
+	
+	if(_products.size() < _targetProductsSize) {
+		QString name;
+		for(size_t i=0; i < 20; i++)
+			name.append(base36[_randomGenerator.bounded(0, 35)]);
+		QJsonObject o {{"name", name}};
+		const QByteArray data = QJsonDocument(o).toJson();
+		std::cout << QString::fromUtf8(data).toStdString() << "\n";
+		post("/ds/products", data, [&] (QNetworkReply* reply) {
+			std::cout << "__________ Finished  ______________" << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			postProducts();
 		});
 	} else {
 		_loop.quit();

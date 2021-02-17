@@ -4,6 +4,7 @@
 #include <QEventLoop>
 #include <vector>
 #include <iostream>
+#include <QRandomGenerator>
 
 class Generator : public QObject
 {
@@ -75,6 +76,7 @@ public:
 
 	// Model specific posters
 	void postPartners();
+	void postProducts();
 	
 public slots:
 	void process();
@@ -93,7 +95,9 @@ private:
 	std::vector<Package> _packages;
 	std::vector<Shipment> _shipments;
 	
+	quint64 _targetProductsSize = 3;
+	
 	QNetworkAccessManager _nam;
 	QEventLoop _loop;
+	QRandomGenerator _randomGenerator;
 };
-
