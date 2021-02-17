@@ -1,0 +1,979 @@
+arthur@omen-rtx:~/code/GreenBites/generator$ amend
+[master e589705] Just created a Google
+ Date: Wed Feb 17 01:17:41 2021 +0100
+ 2 files changed, 48 insertions(+), 6 deletions(-)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:53:24 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+^C
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ amend
+[master 068aba9] Just created a Google
+ Date: Wed Feb 17 01:17:41 2021 +0100
+ 2 files changed, 50 insertions(+), 6 deletions(-)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:53:49 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:53:49 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:53:50 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:53:50 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:53:52 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:53:52 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:53:53 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:53:53 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:53:55 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:53:55 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+Generator.cpp: In lambda function:
+Generator.cpp:191:29: error: ‘lit’ was not declared in this scope
+  191 |    throw std::runtime_error(lit("HTTP Request failed: %1: %2").arg(reply->error()).arg(errorString).toStdString());
+      |                             ^~~
+make: *** [Makefile:375: Generator.o] Error 1
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:56:43 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:56:43 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:56:44 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:56:44 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:56:45 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:56:46 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+make: Nothing to be done for 'first'.
+arthur@omen-rtx:~/code/GreenBites/generator$ rm generator
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ make clean
+rm -f moc_predefs.h
+rm -f moc_Generator.cpp
+rm -f main.o Generator.o moc_Generator.o
+rm -f *~ core *.core
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
+/usr/lib/qt5/bin/moc -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB --include /home/arthur/code/GreenBites/generator/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/arthur/code/GreenBites/generator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Generator.h -o moc_Generator.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o moc_Generator.o moc_Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:57:12 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:57:12 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:57:13 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:57:13 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:57:14 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:57:53 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 00:57:53 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 00:57:54 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/package_types - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ dg
+dg: command not found
+arthur@omen-rtx:~/code/GreenBites/generator$ gd
+diff --git a/Generator.cpp b/Generator.cpp
+index 8e2728f..bbe3363 100644
+--- a/Generator.cpp
++++ b/Generator.cpp
+@@ -68,8 +68,13 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> rep
+                        throw std::runtime_error("HTTP Reply is not finished");
+                if(reply->isRunning())
+                        throw std::runtime_error("HTTP Reply is still running");
+-               if(reply->error() != QNetworkReply::NoError)
+-                       throw std::runtime_error("HTTP Request failed");
++               if(reply->error() != QNetworkReply::NoError) {
++                       std::cout << "HTTP Request failed:\n" << std::endl;
++                       std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
++                       const QString errorString = reply->errorString();
++                       const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
++                       throw std::runtime_error(s.toStdString());
++               }
+                replyParser(reply);
+        });
+ }
+@@ -187,7 +192,9 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
+                if(reply->error() != QNetworkReply::NoError) {
+                        std::cout << "HTTP Request failed:\n" << std::endl;
+                        std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+-                       throw std::runtime_error("HTTP Request failed");
++                       const QString errorString = reply->errorString();
++                       const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
++                       throw std::runtime_error(s.toStdString());
+                }
+                replyParser(reply);
+        });
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ amend
+[master 2008b92] Just created a Google
+ Date: Wed Feb 17 01:17:41 2021 +0100
+ 2 files changed, 59 insertions(+), 8 deletions(-)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ git reset HEAD@{1}
+Unstaged changes after reset:
+M       Generator.cpp
+arthur@omen-rtx:~/code/GreenBites/generator$ git commit -am 'More error message processing'
+[master 155a404] More error message processing
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+arthur@omen-rtx:~/code/GreenBites/generator$ q
+Saving cache. Please wait...
+Compressing data...
+Done.
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qmake -
+arthur@omen-rtx:~/code/GreenBites/generator$ qmake -v
+QMake version 3.1
+Using Qt version 5.12.8 in /usr/lib/x86_64-linux-gnu
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+Generator.cpp: In lambda function:
+Generator.cpp:214:4: error: ‘postProducts’ was not declared in this scope; did you mean ‘getProducts’?
+  214 |    postProducts();
+      |    ^~~~~~~~~~~~
+      |    getProducts
+Generator.cpp: In member function ‘void Generator::postPartners()’:
+Generator.cpp:217:3: error: ‘postProducts’ was not declared in this scope; did you mean ‘getProducts’?
+  217 |   postProducts();
+      |   ^~~~~~~~~~~~
+      |   getProducts
+Generator.cpp: At global scope:
+Generator.cpp:221:6: error: no declaration matches ‘void Generator::postProducts()’
+  221 | void Generator::postProducts()
+      |      ^~~~~~~~~
+Generator.cpp:221:6: note: no functions named ‘void Generator::postProducts()’
+In file included from Generator.cpp:1:
+Generator.h:9:7: note: ‘class Generator’ defined here
+    9 | class Generator : public QObject
+      |       ^~~~~~~~~
+make: *** [Makefile:375: Generator.o] Error 1
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+Generator.cpp: In member function ‘void Generator::postProducts()’:
+Generator.cpp:223:24: error: ‘_targetProductsSize’ was not declared in this scope
+  223 |  if(_products.size() < _targetProductsSize) {
+      |                        ^~~~~~~~~~~~~~~~~~~
+Generator.cpp:225:15: error: expected primary-expression before ‘o’
+  225 |   QJsonObject o {{"name", name}};
+      |               ^
+Generator.cpp:226:41: error: ‘o’ was not declared in this scope
+  226 |   const QByteArray data = QJsonDocument(o).toJson();
+      |                                         ^
+make: *** [Makefile:375: Generator.o] Error 1
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+Generator.cpp: In member function ‘void Generator::postProducts()’:
+Generator.cpp:225:15: error: expected primary-expression before ‘o’
+  225 |   QJsonObject o {{"name", name}};
+      |               ^
+Generator.cpp:226:41: error: ‘o’ was not declared in this scope
+  226 |   const QByteArray data = QJsonDocument(o).toJson();
+      |                                         ^
+make: *** [Makefile:375: Generator.o] Error 1
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+/usr/lib/qt5/bin/moc -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB --include /home/arthur/code/GreenBites/generator/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/arthur/code/GreenBites/generator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Generator.h -o moc_Generator.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o moc_Generator.o moc_Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ git commit -am 'Generate randomized products'
+[master 3f65a2b] Generate randomized products
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+amend
+^X/usr/lib/qt5/bin/moc -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB --include /home/arthur/code/GreenBites/generator/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/arthur/code/GreenBites/generator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Generator.h -o moc_Generator.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o moc_Generator.o moc_Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ amend
+[master daa4e79] Generate randomized products
+ Date: Wed Feb 17 02:07:21 2021 +0100
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ gd
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:07:47 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "w0e01e5f0xi76vxitd8i"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/partners - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:07:54 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "6tymn9gekjd95qxyw2oa"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/partners - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:07:56 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "jou5slwswryl4dsdiet2"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/partners - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:07:57 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/packages - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:07:58 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "269lt448hw39dc8imo4d"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/partners - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:07:59 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/packages - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:08:00 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/shipments - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:08:01 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/shipments - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:08:01 2021 GMT
+========= Parsed partners ========= 2
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "191icuy9034qvmjnbo1o"
+}
+
+__________ Finished  ______________
+[{"id":"db7e8aca-e3d3-46cf-85b9-4625e65d14d8","created_at":"2021-02-17T01:08:02.873058Z","updated_at":"2021-02-17T01:08:02.873058Z","name":"191icuy9034qvmjnbo1o"}]
+
+{
+    "name": "nsri6vxmf0msk8gmue98"
+}
+
+__________ Finished  ______________
+[{"id":"f5ced1ac-eeaa-445b-88af-2d99cdb92204","created_at":"2021-02-17T01:08:02.934632Z","updated_at":"2021-02-17T01:08:02.934632Z","name":"nsri6vxmf0msk8gmue98"}]
+
+{
+    "name": "8mq88mliuvverkwuaq7f"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/partners - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:08:56 2021 GMT
+========= Parsed partners ========= 4
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "bymgg0rw3tw0l9plklst"
+}
+
+__________ Finished  ______________
+[{"id":"ad554a95-b3dd-4c3e-b59d-4d9113b204a3","created_at":"2021-02-17T01:08:56.885511Z","updated_at":"2021-02-17T01:08:56.885511Z","name":"bymgg0rw3tw0l9plklst"}]
+
+{
+    "name": "jcqpbwrssaylep147p4x"
+}
+
+__________ Finished  ______________
+[{"id":"a5b54988-c042-4140-97fe-c4f747265522","created_at":"2021-02-17T01:08:56.937879Z","updated_at":"2021-02-17T01:08:56.937879Z","name":"jcqpbwrssaylep147p4x"}]
+
+{
+    "name": "81hcho83163filwb2qb1"
+}
+
+__________ Finished  ______________
+[{"id":"fb7f97e1-de31-4622-983f-cb6679c29779","created_at":"2021-02-17T01:08:57.008726Z","updated_at":"2021-02-17T01:08:57.008726Z","name":"81hcho83163filwb2qb1"}]
+
+{
+    "name": "p37kjvg62m7i8v7v7kfh"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/partners - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+amendg++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ amend
+[master ab70e4a] Generate randomized products
+ Date: Wed Feb 17 02:07:21 2021 +0100
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:09:22 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "ruldblrxhles8oyspfj3"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/products - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:09:26 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 0
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+{
+    "name": "d5dulfwtlflw0cwc0mi9"
+}
+
+__________ Finished  ______________
+[{"id":"f00c47e6-de41-4045-a5d0-6c9aec695c8d","created_at":"2021-02-17T01:09:27.462422Z","updated_at":"2021-02-17T01:09:27.462422Z","name":"d5dulfwtlflw0cwc0mi9"}]
+
+{
+    "name": "l17pde0t1dxnpyltdofg"
+}
+
+__________ Finished  ______________
+[{"id":"e71eef1c-6acc-453b-9545-ee3a03b560d2","created_at":"2021-02-17T01:09:27.652339Z","updated_at":"2021-02-17T01:09:27.652339Z","name":"l17pde0t1dxnpyltdofg"}]
+
+{
+    "name": "w9c2khtijip5wyt3vcdo"
+}
+
+__________ Finished  ______________
+[{"id":"59171a17-d033-473c-a176-c8af17b502fc","created_at":"2021-02-17T01:09:27.80917Z","updated_at":"2021-02-17T01:09:27.80917Z","name":"w9c2khtijip5wyt3vcdo"}]
+
+{
+    "name": "7njwau7uw3q4n64ksw2w"
+}
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/products - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:09:30 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 3
+f00c47e6-de41-4045-a5d0-6c9aec695c8d: d5dulfwtlflw0cwc0mi9
+e71eef1c-6acc-453b-9545-ee3a03b560d2: l17pde0t1dxnpyltdofg
+59171a17-d033-473c-a176-c8af17b502fc: w9c2khtijip5wyt3vcdo
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 01:09:30 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:09:33 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 3
+f00c47e6-de41-4045-a5d0-6c9aec695c8d: d5dulfwtlflw0cwc0mi9
+e71eef1c-6acc-453b-9545-ee3a03b560d2: l17pde0t1dxnpyltdofg
+59171a17-d033-473c-a176-c8af17b502fc: w9c2khtijip5wyt3vcdo
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 01:09:33 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+Generator.cpp: In member function ‘void Generator::postProducts()’:
+Generator.cpp:228:34: warning: capture of variable ‘base36’ with non-automatic storage duration
+  228 |   const auto generateProduct = [&base36] {
+      |                                  ^~~~~~
+Generator.cpp:223:23: note: ‘const QString base36’ declared here
+  223 |  static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
+      |                       ^~~~~~
+Generator.cpp: In lambda function:
+Generator.cpp:231:24: error: ‘this’ was not captured for this lambda function
+  231 |     name.append(base36[_randomGenerator.bounded(0, 35)]);
+      |                        ^~~~~~~~~~~~~~~~
+Generator.cpp:231:24: error: invalid use of non-static data member ‘Generator::_randomGenerator’
+In file included from Generator.cpp:1:
+Generator.h:102:19: note: declared here
+  102 |  QRandomGenerator _randomGenerator;
+      |                   ^~~~~~~~~~~~~~~~
+make: *** [Makefile:375: Generator.o] Error 1
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+Generator.cpp: In member function ‘void Generator::postProducts()’:
+Generator.cpp:228:33: warning: capture of variable ‘base36’ with non-automatic storage duration
+  228 |   const auto generateProduct = [base36] {
+      |                                 ^~~~~~
+Generator.cpp:223:23: note: ‘const QString base36’ declared here
+  223 |  static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
+      |                       ^~~~~~
+Generator.cpp: In lambda function:
+Generator.cpp:231:24: error: ‘this’ was not captured for this lambda function
+  231 |     name.append(base36[_randomGenerator.bounded(0, 35)]);
+      |                        ^~~~~~~~~~~~~~~~
+Generator.cpp:231:24: error: invalid use of non-static data member ‘Generator::_randomGenerator’
+In file included from Generator.cpp:1:
+Generator.h:102:19: note: declared here
+  102 |  QRandomGenerator _randomGenerator;
+      |                   ^~~~~~~~~~~~~~~~
+make: *** [Makefile:375: Generator.o] Error 1
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:12:59 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 3
+f00c47e6-de41-4045-a5d0-6c9aec695c8d: d5dulfwtlflw0cwc0mi9
+e71eef1c-6acc-453b-9545-ee3a03b560d2: l17pde0t1dxnpyltdofg
+59171a17-d033-473c-a176-c8af17b502fc: w9c2khtijip5wyt3vcdo
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+Finished on wo feb. 17 01:12:59 2021 GMT
+arthur@omen-rtx:~/code/GreenBites/generator$ qm
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o main.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o Generator.o Generator.cpp
+/usr/lib/qt5/bin/moc -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB --include /home/arthur/code/GreenBites/generator/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/arthur/code/GreenBites/generator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Generator.h -o moc_Generator.cpp
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -fPIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o moc_Generator.o moc_Generator.cpp
+g++ -Wl,-O1 -o generator main.o Generator.o moc_Generator.o   /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:13:16 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 3
+f00c47e6-de41-4045-a5d0-6c9aec695c8d: d5dulfwtlflw0cwc0mi9
+e71eef1c-6acc-453b-9545-ee3a03b560d2: l17pde0t1dxnpyltdofg
+59171a17-d033-473c-a176-c8af17b502fc: w9c2khtijip5wyt3vcdo
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+[
+    {
+        "name": "a32iqonx9cy0qiq1xbfq"
+    },
+    {
+        "name": "nknqf21wvtashhj2ofbp"
+    }
+]
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/products - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:13:21 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 3
+f00c47e6-de41-4045-a5d0-6c9aec695c8d: d5dulfwtlflw0cwc0mi9
+e71eef1c-6acc-453b-9545-ee3a03b560d2: l17pde0t1dxnpyltdofg
+59171a17-d033-473c-a176-c8af17b502fc: w9c2khtijip5wyt3vcdo
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+[
+    {
+        "name": "9vrxpowrbh7lf4asisd8"
+    },
+    {
+        "name": "mr4jlk7b94cmooylmqyn"
+    }
+]
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/products - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ ./generator 
+Started on wo feb. 17 01:13:24 2021 GMT
+========= Parsed partners ========= 7
+914d8132-3074-4c54-8afb-f494ebe95cd7: Baltussen
+1594cb49-5279-46d2-9cbe-7e1506fc5c7e: Google
+db7e8aca-e3d3-46cf-85b9-4625e65d14d8: 191icuy9034qvmjnbo1o
+f5ced1ac-eeaa-445b-88af-2d99cdb92204: nsri6vxmf0msk8gmue98
+ad554a95-b3dd-4c3e-b59d-4d9113b204a3: bymgg0rw3tw0l9plklst
+a5b54988-c042-4140-97fe-c4f747265522: jcqpbwrssaylep147p4x
+fb7f97e1-de31-4622-983f-cb6679c29779: 81hcho83163filwb2qb1
+========= Parsed products ========= 3
+f00c47e6-de41-4045-a5d0-6c9aec695c8d: d5dulfwtlflw0cwc0mi9
+e71eef1c-6acc-453b-9545-ee3a03b560d2: l17pde0t1dxnpyltdofg
+59171a17-d033-473c-a176-c8af17b502fc: w9c2khtijip5wyt3vcdo
+========= Parsed package types ========= 0
+========= Parsed packages ========= 0
+========= Parsed shipments ========= 0
+[
+    {
+        "name": "yx4uyd9lh73gurdorgys"
+    },
+    {
+        "name": "8sykhkabqfeygdw77ogy"
+    }
+]
+
+HTTP Request failed:
+
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  HTTP Request failed: 403Error transferring https://af84f7fd-3376-486d-884f-6839d7de4de9.nl00.app.jexia.com/ds/products - server replied: Service Unavailable
+Aborted (core dumped)
+arthur@omen-rtx:~/code/GreenBites/generator$ 
+
