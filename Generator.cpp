@@ -125,6 +125,35 @@ void Generator::getProducts()
 		std::cout << "========= Parsed products ========= " << _products.size() << std::endl;
 		for(auto& p: _products)
 			p.print();
+		deleteProducts();
+	});
+}
+
+void Generator::deleteProducts()
+{
+	// A condition is required
+	QNetworkRequest request(_jexiaProjectUrl + "/ds/products?1=1");
+	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
+//	request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/x-www-form-urlencoded"));
+	QJsonArray array;
+	for(auto& p: _products)
+		array.append(QJsonObject{{"id", p.uuid}});
+	const QByteArray body = QJsonDocument(array).toJson();
+	auto reply = _nam.sendCustomRequest(request, "DELETE", body);
+
+	QObject::connect(reply, &QNetworkReply::finished, [&, reply] {
+		std::cout << "Delete reply finished\n";
+		if(!reply->isFinished())
+			throw std::runtime_error("HTTP Reply is not finished");
+		if(reply->isRunning())
+			throw std::runtime_error("HTTP Reply is still running");
+		if(reply->error() != QNetworkReply::NoError) {
+			std::cout << "HTTP Request failed:\n" << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			const QString errorString = reply->errorString();
+			const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
+			throw std::runtime_error(s.toStdString());
+		}
 		getPackageTypes();
 	});
 }

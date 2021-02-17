@@ -67,6 +67,7 @@ public:
 	// Model specific getters
 	void getPartners();
 	void getProducts();
+	void deleteProducts();
 	void getPackageTypes();
 	void getPackages();
 	void getShipments();
