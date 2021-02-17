@@ -49,7 +49,7 @@ void Generator::deleteAllProducts()
 {
 	// These must be enqueued as separate tasks
 	// because the lambda finishes before the responses are parsed.
-	_workQueue.emplace_back([&] { QThread::sleep(3); deleteAllProductsJob(); });
+	_workQueue.emplace_back([&] { deleteAllProductsJob(); });
 }
 
 void Generator::run()
