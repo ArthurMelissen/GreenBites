@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <QRandomGenerator>
+#include <deque>
 
 class Generator : public QObject
 {
@@ -75,11 +76,10 @@ public:
 	// General HTTP POST infra
 	void post(const QString& path, const QByteArray& data, std::function<void(QNetworkReply*)> replyParser);
 
-	// Model specific posters
-	void postPartners();
-	void postProducts();
+	// Model specific creaters
+	void createPartners();
+	void createProducts();
 	
-public slots:
 	void process();
 	
 private:
@@ -95,6 +95,8 @@ private:
 	std::vector<PackageType> _packageTypes;
 	std::vector<Package> _packages;
 	std::vector<Shipment> _shipments;
+	
+	std::deque<std::function<void(void)>> _workQueue;
 	
 	quint64 _targetProductsSize = 8;
 	

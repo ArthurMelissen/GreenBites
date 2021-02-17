@@ -19,12 +19,34 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 		std::cout << "QNetworkAccessManager::authenticationRequired - 100" << std::endl;
 	});
 	
+	_workQueue = {
+		[&] { authenticate(); },
+		[&] { getPartners(); },
+		[&] { getProducts(); },
+		[&] { getPackageTypes(); },
+		[&] { getPackages(); },
+		[&] { getShipments(); },
+		[&] { createPartners(); },
+		[&] { createProducts(); }
+	};
 }
 
 void Generator::run()
 {
-	QTimer::singleShot(10, [&] { authenticate(); });
+	QTimer::singleShot(10, [&] { process(); });
 	_loop.exec();
+}
+
+void Generator::process()
+{
+	if(_workQueue.empty()) {
+		_loop.quit();
+		return;
+	}
+	
+	auto f = _workQueue.front();
+	_workQueue.pop_front();
+	f();
 }
 
 void Generator::authenticate()
@@ -54,7 +76,7 @@ void Generator::authenticate()
 			throw std::runtime_error("One of the tokens is empty");
 		
 		// The next step
-		getPartners();
+		process();
 	});
 }
 
@@ -109,7 +131,7 @@ void Generator::getPartners()
 		std::cout << "========= Parsed partners ========= " << _partners.size() << std::endl;
 		for(auto& p: _partners)
 			p.print();
-		getProducts();
+		process();
 	});
 }
 
@@ -125,20 +147,21 @@ void Generator::getProducts()
 		std::cout << "========= Parsed products ========= " << _products.size() << std::endl;
 		for(auto& p: _products)
 			p.print();
-		deleteProducts();
+		process();
 	});
 }
 
 void Generator::deleteProducts()
 {
 	// A condition is required
-	QNetworkRequest request(_jexiaProjectUrl + "/ds/products?1=1");
+	QNetworkRequest request(_jexiaProjectUrl + "/ds/products");
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
 //	request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/x-www-form-urlencoded"));
 	QJsonArray array;
 	for(auto& p: _products)
 		array.append(QJsonObject{{"id", p.uuid}});
 	const QByteArray body = QJsonDocument(array).toJson();
+	std::cout << QString::fromUtf8(body).toStdString() << std::endl;
 	auto reply = _nam.sendCustomRequest(request, "DELETE", body);
 
 	QObject::connect(reply, &QNetworkReply::finished, [&, reply] {
@@ -154,7 +177,7 @@ void Generator::deleteProducts()
 			const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
 			throw std::runtime_error(s.toStdString());
 		}
-		getPackageTypes();
+		process();
 	});
 }
 
@@ -171,7 +194,7 @@ void Generator::getPackageTypes()
 		std::cout << "========= Parsed package types ========= " << _packageTypes.size() << std::endl;
 		for(auto& p: _packageTypes)
 			p.print();
-		getPackages();
+		process();
 	});
 }
 
@@ -187,7 +210,7 @@ void Generator::getPackages()
 		std::cout << "========= Parsed packages ========= " << _packages.size() << std::endl;
 		for(auto& p: _packages)
 			p.print();
-		getShipments();
+		process();
 	});
 }
 
@@ -203,7 +226,7 @@ void Generator::getShipments()
 		std::cout << "========= Parsed shipments ========= " << _shipments.size() << std::endl;
 		for(auto& s: _shipments)
 			s.print();
-		postPartners();
+		process();
 	});
 }
 
@@ -230,7 +253,7 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 	});
 }
 
-void Generator::postPartners()
+void Generator::createPartners()
 {
 	const auto google = std::find_if(_partners.begin(), _partners.end(), [] (const auto& p) { return p.name == "Google"; });
 	if(google == _partners.end()) {
@@ -240,14 +263,14 @@ void Generator::postPartners()
 		post("/ds/partners", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
 			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
-			postProducts();
+			process();
 		});
 	} else {
-		postProducts();
+		process();
 	}
 }
 
-void Generator::postProducts()
+void Generator::createProducts()
 {
 	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
@@ -275,14 +298,9 @@ void Generator::postProducts()
 		post("/ds/products", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
 			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
-			_loop.quit();
+			process();
 		});
 	} else {
-		_loop.quit();
+		process();
 	}
-}
-
-void Generator::process()
-{
-	std::cout << "Processing" << std::endl;
 }
