@@ -21,15 +21,27 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 	
 	_workQueue = {
 		[&] { authenticate(); },
-		[&] { getPartners(); },
+// 		[&] { getPartners(); },
 		[&] { getProducts(); },
-		[&] { getPackageTypes(); },
-		[&] { getPackages(); },
-		[&] { getShipments(); },
-//		[&] { createPartners(); },
-//		[&] { createProducts(); },
-		[&] { deleteProducts(); }
+// 		[&] { getPackageTypes(); },
+// 		[&] { getPackages(); },
+// 		[&] { getShipments(); }
 	};
+}
+
+void Generator::createPartners(size_t count)
+{
+	_workQueue.emplace_back([&] { createPartnersJob(count); });
+}
+
+void Generator::createProducts(size_t count)
+{
+	_workQueue.emplace_back([&] { createProductsJob(count); });
+}
+
+void Generator::deleteProducts()
+{
+	_workQueue.emplace_back([&] { deleteProductsJob(); });
 }
 
 void Generator::run()
@@ -157,10 +169,18 @@ void Generator::getProducts()
 // cond=%5B%7B%22field%22%3A%22id%22%7D%2C%22%3D%22%2C%222a51593d-e99f-4025-b20b-159e226fc47d%22%5D
 
 
-void Generator::deleteProducts()
+void Generator::deleteProductsJob()
 {
+	std::cout << ("Deleting from products " + QString::number(_products.size()) + "\n").toStdString();
+	if(_products.empty()) {
+		process();
+		return;
+	}
+	
 	// A condition is required
-	const QString condition = "[{\"field\":\"id\"},\"=\",\"2a51593d-e99f-4025-b20b-159e226fc47d\"]";
+	const QString productUuid = _products.front().uuid;
+	std::cout << ("Deleting product " + productUuid + "\n").toStdString();
+	const QString condition = "[{\"field\":\"id\"},\"=\",\"" + productUuid + "\"]";
 	QNetworkRequest request(_jexiaProjectUrl + "/ds/products?cond=" + QUrl::toPercentEncoding(condition));
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
  	auto reply = _nam.deleteResource(request);
@@ -262,7 +282,7 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 	});
 }
 
-void Generator::createPartners()
+void Generator::createPartnersJob(size_t count)
 {
 	const auto google = std::find_if(_partners.begin(), _partners.end(), [] (const auto& p) { return p.name == "Google"; });
 	if(google == _partners.end()) {
@@ -279,11 +299,9 @@ void Generator::createPartners()
 	}
 }
 
-void Generator::createProducts()
+void Generator::createProductsJob(size_t count)
 {
 	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
-	
-	const size_t batchSize = 200;
 	
 	if(_products.size() < _targetProductsSize) {
 		const auto generateProduct = [&] {
@@ -294,11 +312,11 @@ void Generator::createProducts()
 		};
 	
 		QByteArray data;
-		if(batchSize == 1) {
+		if(count == 1) {
 			data = QJsonDocument(generateProduct()).toJson();
 		} else {
 			QJsonArray array;
-			for(size_t i=0; i < batchSize; i++)
+			for(size_t i=0; i < count; i++)
 				array.append(generateProduct());
 			data = QJsonDocument(array).toJson();
 		}

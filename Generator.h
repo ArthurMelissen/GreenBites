@@ -13,6 +13,10 @@ Q_OBJECT
 public:
 	Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, const QString& jexiaSecret);
 	
+	void createPartners(size_t count);
+	void createProducts(size_t count);
+	void deleteProducts();
+	
 	struct Partner {
 		QString uuid;
 		QString name;
@@ -61,27 +65,6 @@ public:
 	
 	// General HTTP GET infra
 	void run();
-	void get(const QString& path, std::function<void(QNetworkReply*)> func);
-	void getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally);
-	void authenticate();
-	
-	// Model specific getters
-	void getPartners();
-	void getProducts();
-	void deleteProducts();
-	void getPackageTypes();
-	void getPackages();
-	void getShipments();
-	
-	// General HTTP POST infra
-	void post(const QString& path, const QByteArray& data, std::function<void(QNetworkReply*)> replyParser);
-
-	// Model specific creaters
-	void createPartners();
-	void createProducts();
-	
-	void process();
-	
 private:
 	const QString _jexiaProjectUrl;
 	const QString _jexiaKey;
@@ -103,4 +86,25 @@ private:
 	QNetworkAccessManager _nam;
 	QEventLoop _loop;
 	QRandomGenerator _randomGenerator;
+	
+	void get(const QString& path, std::function<void(QNetworkReply*)> func);
+	void getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally);
+	void authenticate();
+	
+	// Model specific getters
+	void getPartners();
+	void getProducts();
+	void deleteProductsJob();
+	void getPackageTypes();
+	void getPackages();
+	void getShipments();
+	
+	// General HTTP POST infra
+	void post(const QString& path, const QByteArray& data, std::function<void(QNetworkReply*)> replyParser);
+
+	// Model specific creaters
+	void createPartnersJob(size_t count);
+	void createProductsJob(size_t count);
+	
+	void process();
 };
