@@ -17,7 +17,7 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 //	void QNetworkAccessManager::authenticationRequired(QNetworkReply *reply, QAuthenticator *authenticator)
 
 	QObject::connect(&_nam, &QNetworkAccessManager::authenticationRequired, [] {
-		std::cout << "QNetworkAccessManager::authenticationRequired - 100" << std::endl;
+		std::cout << "QNetworkAccessManager::authenticationRequired - 100" << std::endl << std::flush;
 	});
 	
 	_workQueue = {
@@ -113,10 +113,11 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> rep
 		if(reply->isRunning())
 			throw std::runtime_error("HTTP Reply is still running");
 		if(reply->error() != QNetworkReply::NoError) {
-			std::cout << "HTTP Request failed:\n" << std::endl;
-			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			std::cout << "HTTP GET Request failed: \n" << std::endl;
+			std::cout << "Url: " << reply->request().url().toString().toStdString() << "\n";
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			const QString errorString = reply->errorString();
-			const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
+			const auto s = "HTTP GET Request failed (" + QString::number(reply->error()) + "): " + errorString;
 			throw std::runtime_error(s.toStdString());
 		}
 		replyParser(reply);
@@ -149,7 +150,7 @@ void Generator::getPartners()
 		const QString name = object.value("name").toString();
 		_partners.emplace_back(Partner{ uuid, name });
 	}, [&] {
-		std::cout << "========= Parsed partners ========= " << _partners.size() << std::endl;
+		std::cout << "========= Parsed partners ========= " << _partners.size() << std::endl << std::flush;
 		for(auto& p: _partners)
 			p.print();
 		process();
@@ -165,7 +166,7 @@ void Generator::getProductsJob()
 		const QString name = object.value("name").toString();
 		_products.emplace_back(Product{ uuid, name });
 	}, [&] {
-		std::cout << "========= Parsed products ========= " << _products.size() << std::endl;
+		std::cout << "========= Parsed products ========= " << _products.size() << std::endl << std::flush;
 		for(auto& p: _products)
 			p.print();
 		process();
@@ -179,7 +180,7 @@ void Generator::getProductsJob()
 
 void Generator::deleteAllProductsJob()
 {
-	std::cout << "Deleting from products " << _products.size() << " items\n";
+	std::cout << "Deleting from products " << _products.size() << " items\n" << std::flush;
 	if(_products.empty()) {
 		process();
 		return;
@@ -196,16 +197,16 @@ void Generator::deleteAllProductsJob()
  	auto reply = _nam.deleteResource(request);
 	
 	QObject::connect(reply, &QNetworkReply::finished, [&, reply] {
-		std::cout << "Delete reply finished\n";
+		std::cout << "Delete reply finished\n" << std::flush;
 		if(!reply->isFinished())
 			throw std::runtime_error("HTTP Reply is not finished");
 		if(reply->isRunning())
 			throw std::runtime_error("HTTP Reply is still running");
 		if(reply->error() != QNetworkReply::NoError) {
-			std::cout << "HTTP Request failed:\n" << std::endl;
-			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			std::cout << "Delete all products HTTP Request failed:\n" << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			const QString errorString = reply->errorString();
-			const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
+			const auto s = "Delete all products HTTP Request failed: " + QString::number(reply->error()) + errorString;
 			throw std::runtime_error(s.toStdString());
 		}
 		process();
@@ -222,7 +223,7 @@ void Generator::getPackageTypes()
 		const int quantity = object.value("quantity").toInt();
 		_packageTypes.emplace_back(PackageType{ uuid, name, quantity });
 	}, [&] {
-		std::cout << "========= Parsed package types ========= " << _packageTypes.size() << std::endl;
+		std::cout << "========= Parsed package types ========= " << _packageTypes.size() << std::endl << std::flush;
 		for(auto& p: _packageTypes)
 			p.print();
 		process();
@@ -238,7 +239,7 @@ void Generator::getPackages()
 		const int quantity = object.value("quantity").toInt();
 		_packages.emplace_back(Package{ uuid, quantity });
 	}, [&] {
-		std::cout << "========= Parsed packages ========= " << _packages.size() << std::endl;
+		std::cout << "========= Parsed packages ========= " << _packages.size() << std::endl << std::flush;
 		for(auto& p: _packages)
 			p.print();
 		process();
@@ -254,7 +255,7 @@ void Generator::getShipments()
 		const QString address = object.value("address").toString();
 		_shipments.emplace_back(Shipment{ uuid, address });
 	}, [&] {
-		std::cout << "========= Parsed shipments ========= " << _shipments.size() << std::endl;
+		std::cout << "========= Parsed shipments ========= " << _shipments.size() << std::endl << std::flush;
 		for(auto& s: _shipments)
 			s.print();
 		process();
@@ -274,10 +275,10 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 		if(reply->isRunning())
 			throw std::runtime_error("HTTP Reply is still running");
 		if(reply->error() != QNetworkReply::NoError) {
-			std::cout << "HTTP Request failed:\n" << std::endl;
-			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			std::cout << "HTTP POST Request failed: \n" << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			const QString errorString = reply->errorString();
-			const auto s = "HTTP Request failed: " + QString::number(reply->error()) + errorString;
+			const auto s = "HTTP POST Request failed: " + QString::number(reply->error()) + errorString;
 			throw std::runtime_error(s.toStdString());
 		}
 		replyParser(reply);
@@ -290,10 +291,10 @@ void Generator::createPartnersJob(size_t count)
 	if(google == _partners.end()) {
 		QJsonObject o {{"name", "Google"}};
 		const QByteArray data = QJsonDocument(o).toJson();
-		std::cout << QString::fromUtf8(data).toStdString() << "\n";
+		std::cout << QString::fromUtf8(data).toStdString() << "\n" << std::flush;
 		post("/ds/partners", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
-			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			process();
 		});
 	} else {
@@ -303,7 +304,7 @@ void Generator::createPartnersJob(size_t count)
 
 void Generator::createProductsJob(size_t count)
 {
-	std::cout << "Creating new products " << count << "\n";
+	std::cout << "Creating new products " << count << "\n" << std::flush;
 	
 	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
@@ -325,10 +326,10 @@ void Generator::createProductsJob(size_t count)
 			data = QJsonDocument(array).toJson();
 		}
 		
-		std::cout << QString::fromUtf8(data).toStdString() << "\n";
+		std::cout << QString::fromUtf8(data).toStdString() << "\n" << std::flush;
 		post("/ds/products", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
-			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			process();
 		});
 	} else {

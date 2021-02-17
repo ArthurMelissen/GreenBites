@@ -31,7 +31,7 @@ int main(int argc, char**argv)
 	clParser.addOption(deleteAllProductsArg);
 
 	const QDateTime startTime = QDateTime::currentDateTimeUtc();
-	std::cout << "Started on " << startTime.toString().toStdString() << "\n";
+	std::cout << "Started on " << startTime.toString().toStdString() << std::endl << std::flush;
 	auto env = QProcessEnvironment::systemEnvironment();
 
 	const auto getEnv = [&] (const QString& variable) {
@@ -71,6 +71,6 @@ int main(int argc, char**argv)
 	
 	g.run();
 
-	std::cout << "Finished on " << startTime.toString().toStdString() << "\n";
+	std::cout << "Finished on " << startTime.toString().toStdString() << std::endl << std::flush;
 	return 0;
 }
