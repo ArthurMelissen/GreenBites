@@ -13,9 +13,10 @@ Q_OBJECT
 public:
 	Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, const QString& jexiaSecret);
 	
+	void getProducts();
 	void createPartners(size_t count);
 	void createProducts(size_t count);
-	void deleteProducts();
+	void deleteAllProducts();
 	
 	struct Partner {
 		QString uuid;
@@ -93,8 +94,8 @@ private:
 	
 	// Model specific getters
 	void getPartners();
-	void getProducts();
-	void deleteProductsJob();
+	void getProductsJob();
+	void deleteAllProductsJob();
 	void getPackageTypes();
 	void getPackages();
 	void getShipments();

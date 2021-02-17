@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QAuthenticator>
 #include <QJsonArray>
+#include <QThread>
 
 Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, const QString& jexiaSecret)
 : _jexiaProjectUrl(jexiaProjectUrl)
@@ -21,12 +22,17 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 	
 	_workQueue = {
 		[&] { authenticate(); },
-// 		[&] { getPartners(); },
-		[&] { getProducts(); },
-// 		[&] { getPackageTypes(); },
-// 		[&] { getPackages(); },
-// 		[&] { getShipments(); }
+		[&] { getPartners(); },
+//		[&] { getProducts(); },
+		[&] { getPackageTypes(); },
+		[&] { getPackages(); },
+		[&] { getShipments(); }
 	};
+}
+
+void Generator::getProducts()
+{
+	_workQueue.emplace_back([&] { getProductsJob(); });
 }
 
 void Generator::createPartners(size_t count)
@@ -36,12 +42,14 @@ void Generator::createPartners(size_t count)
 
 void Generator::createProducts(size_t count)
 {
-	_workQueue.emplace_back([&] { createProductsJob(count); });
+	_workQueue.emplace_back([&, count] { createProductsJob(count); });
 }
 
-void Generator::deleteProducts()
+void Generator::deleteAllProducts()
 {
-	_workQueue.emplace_back([&] { deleteProductsJob(); });
+	// These must be enqueued as separate tasks
+	// because the lambda finishes before the responses are parsed.
+	_workQueue.emplace_back([&] { QThread::sleep(3); deleteAllProductsJob(); });
 }
 
 void Generator::run()
@@ -148,7 +156,7 @@ void Generator::getPartners()
 	});
 }
 
-void Generator::getProducts()
+void Generator::getProductsJob()
 {
 	getArray("/ds/products", [&] (QJsonObject object) {
 		if(!object.contains("id") || !object.contains("name"))
@@ -169,22 +177,20 @@ void Generator::getProducts()
 // cond=%5B%7B%22field%22%3A%22id%22%7D%2C%22%3D%22%2C%222a51593d-e99f-4025-b20b-159e226fc47d%22%5D
 
 
-void Generator::deleteProductsJob()
+void Generator::deleteAllProductsJob()
 {
-	std::cout << ("Deleting from products " + QString::number(_products.size()) + "\n").toStdString();
+	std::cout << "Deleting from products " << _products.size() << " items\n";
 	if(_products.empty()) {
 		process();
 		return;
 	}
 	
-	// A condition is required
+	// This is how you can delete one product.
 // 	const QString productUuid = _products.front().uuid;
 // 	std::cout << ("Deleting product " + productUuid + "\n").toStdString();
 // 	const QString condition = "[{\"field\":\"id\"},\"=\",\"" + productUuid + "\"]";
 	
-	std::cout << "Deleting all products\n";
 	const QString condition = "[1,\"=\",1]";
-
 	QNetworkRequest request(_jexiaProjectUrl + "/ds/products?cond=" + QUrl::toPercentEncoding(condition));
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
  	auto reply = _nam.deleteResource(request);
@@ -297,6 +303,8 @@ void Generator::createPartnersJob(size_t count)
 
 void Generator::createProductsJob(size_t count)
 {
+	std::cout << "Creating new products " << count << "\n";
+	
 	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
 	if(_products.size() < _targetProductsSize) {
