@@ -57,18 +57,24 @@ public:
 		}
 	};
 	
-	// General HTTP infra
+	// General HTTP GET infra
 	void run();
 	void get(const QString& path, std::function<void(QNetworkReply*)> func);
 	void getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally);
 	void authenticate();
 	
-	// Model specific functions
+	// Model specific getters
 	void getPartners();
 	void getProducts();
 	void getPackageTypes();
 	void getPackages();
 	void getShipments();
+	
+	// General HTTP POST infra
+	void post(const QString& path, const QByteArray& data, std::function<void(QNetworkReply*)> replyParser);
+
+	// Model specific posters
+	void postPartners();
 	
 public slots:
 	void process();

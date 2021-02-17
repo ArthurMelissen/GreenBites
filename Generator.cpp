@@ -57,20 +57,20 @@ void Generator::authenticate()
 	});
 }
 
-void Generator::get(const QString& path, std::function<void(QNetworkReply*)> func)
+void Generator::get(const QString& path, std::function<void(QNetworkReply*)> replyParser)
 {
 	QNetworkRequest request(_jexiaProjectUrl + path);
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
 	
 	QNetworkReply* reply = _nam.get(request);
-	QObject::connect(reply, &QNetworkReply::finished, [func, reply] {
+	QObject::connect(reply, &QNetworkReply::finished, [replyParser, reply] {
 		if(!reply->isFinished())
 			throw std::runtime_error("HTTP Reply is not finished");
 		if(reply->isRunning())
 			throw std::runtime_error("HTTP Reply is still running");
 		if(reply->error() != QNetworkReply::NoError)
 			throw std::runtime_error("HTTP Request failed");
-		func(reply);
+		replyParser(reply);
 	});
 }
 
@@ -168,8 +168,46 @@ void Generator::getShipments()
 		std::cout << "========= Parsed shipments ========= " << _shipments.size() << std::endl;
 		for(auto& s: _shipments)
 			s.print();
-		_loop.quit();
+		postPartners();
 	});
+}
+
+void Generator::post(const QString& path, const QByteArray& data, std::function<void(QNetworkReply*)> replyParser)
+{
+	QNetworkRequest request(_jexiaProjectUrl + path);
+	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
+	request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/x-www-form-urlencoded"));
+	
+	QNetworkReply* reply = _nam.post(request, data);
+	QObject::connect(reply, &QNetworkReply::finished, [replyParser, reply] {
+		if(!reply->isFinished())
+			throw std::runtime_error("HTTP Reply is not finished");
+		if(reply->isRunning())
+			throw std::runtime_error("HTTP Reply is still running");
+		if(reply->error() != QNetworkReply::NoError) {
+			std::cout << "HTTP Request failed:\n" << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			throw std::runtime_error("HTTP Request failed");
+		}
+		replyParser(reply);
+	});
+}
+
+void Generator::postPartners()
+{
+	const auto google = std::find_if(_partners.begin(), _partners.end(), [] (const auto& p) { return p.name == "Google"; });
+	if(google == _partners.end()) {
+		QJsonObject o {{"name", "Google"}};
+		const QByteArray data = QJsonDocument(o).toJson();
+		std::cout << QString::fromUtf8(data).toStdString() << "\n";
+		post("/ds/partners", data, [&] (QNetworkReply* reply) {
+			std::cout << "__________ Finished  ______________" << std::endl;
+			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl;
+			_loop.quit();
+		});
+	} else {
+		_loop.quit();
+	}
 }
 
 void Generator::process()
