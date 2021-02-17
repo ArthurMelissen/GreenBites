@@ -124,20 +124,37 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> rep
 	});
 }
 
-void Generator::getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally)
+// range={"limit": 5, "offset": 3}
+void Generator::getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally, size_t offset)
 {
-	get(path, [apply, finally] (QNetworkReply* reply) {
+	std::cout << "getArray (" << path.toStdString() << ", " << offset << ")\n";
+	
+	QString paginatePath;
+	if(offset == 0) {
+		paginatePath = path;
+	} else {
+		const QString r = "{\"limit\": 1000, \"offset\": " + QString::number(offset) + "}";
+		paginatePath = path + "?range=" + QUrl::toPercentEncoding(r);
+	}
+	
+	get(paginatePath, [&, path, apply, finally, offset] (QNetworkReply* reply) {
 		const QByteArray result = reply->readAll();
 		const auto doc = QJsonDocument::fromJson(result);
 		if(!doc.isArray())
 			throw std::runtime_error("Document is not a json array");
 		const auto array = doc.array();
-		for(const QJsonValue& element: array) {
-			if(!element.isObject())
-				throw std::runtime_error("Element is not an object");
-			apply(element.toObject());
+		if(!array.isEmpty()) {
+			for(const QJsonValue& element: array) {
+				if(!element.isObject())
+					throw std::runtime_error("Element is not an object");
+				apply(element.toObject());
+			}
+			// Continue with next offset
+			getArray(path, apply, finally, offset + array.size());
+		} else {
+			// If we get an empty array, we are done.
+			finally();
 		}
-		finally();
 	});
 }
 
@@ -278,7 +295,7 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 			std::cout << "HTTP POST Request failed: \n" << std::endl;
 			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			const QString errorString = reply->errorString();
-			const auto s = "HTTP POST Request failed: " + QString::number(reply->error()) + errorString;
+			const auto s = "HTTP POST Request failed (" + QString::number(reply->error()) + "): " + errorString;
 			throw std::runtime_error(s.toStdString());
 		}
 		replyParser(reply);

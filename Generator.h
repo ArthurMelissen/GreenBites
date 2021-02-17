@@ -89,7 +89,7 @@ private:
 	QRandomGenerator _randomGenerator;
 	
 	void get(const QString& path, std::function<void(QNetworkReply*)> func);
-	void getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally);
+	void getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally, size_t offset = 0);
 	void authenticate();
 	
 	// Model specific getters
