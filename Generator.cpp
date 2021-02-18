@@ -105,6 +105,8 @@ void Generator::authenticate()
 
 void Generator::get(const QString& path, std::function<void(QNetworkReply*)> replyParser)
 {
+	QThread::msleep(200);
+	
 	QNetworkRequest request(_jexiaProjectUrl + path);
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
 	
@@ -130,7 +132,7 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> rep
 // range={"limit": 5, "offset": 3}
 void Generator::getArray(const QString& path, std::function<void(QJsonObject)> apply, std::function<void(void)> finally, size_t offset)
 {
-	std::cout << "getArray (" << path.toStdString() << ", " << offset << ")\n";
+	std::cout << "getArray (" << path.toStdString() << ", " << offset << ")" << std::endl << std::flush;
 	
 	QString paginatePath;
 	if(offset == 0) {
@@ -316,7 +318,7 @@ void Generator::createPartnersJob(size_t count)
 		std::cout << QString::fromUtf8(data).toStdString() << "\n" << std::flush;
 		post("/ds/partners", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
-			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
+//			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			process();
 		});
 	} else {
@@ -348,10 +350,10 @@ void Generator::createProductsJob(size_t count)
 			data = QJsonDocument(array).toJson();
 		}
 		
-		std::cout << QString::fromUtf8(data).toStdString() << "\n" << std::flush;
+//		std::cout << QString::fromUtf8(data).toStdString() << "\n" << std::flush;
 		post("/ds/products", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
-			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
+//			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			process();
 		});
 	} else {
