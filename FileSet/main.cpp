@@ -39,25 +39,25 @@ int main(int argc, char**argv)
 	if(clParser.isSet(uploadFilesArg)) {
 		const QString arg = clParser.value(uploadFilesArg);
 		bool ok = true;
-		size_t fileCount = 1;
-		size_t fileSize = 1048576;
+		size_t filecount = 1;
+		size_t filesize = 1048576;
 		if(arg.contains(",")) {
 			// If there is a comma, parse the file count and size
 			const QStringList args = arg.split(",");
-			fileSize = args[0].toInt(&ok);
+			filesize = args[0].toInt(&ok);
 			if(!ok)
 				throw std::runtime_error("Could not parse file size");
-			fileSize = args[1].toInt(&ok);
+			filecount = args[1].toInt(&ok);
 			if(!ok)
 				throw std::runtime_error("Could not parse file count");
 		} else {
 			// Just parse the file size
-			fileSize = arg.toInt(&ok);
+			filesize = arg.toInt(&ok);
 			if(!ok)
 				throw std::runtime_error("Could not parse file size");
 		}
 		std::cout << "Upload files job added\n";
-		g.uploadFiles(10);
+		g.uploadFiles(filesize, filecount);
 	}
 	
 	g.run();

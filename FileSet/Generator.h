@@ -13,7 +13,7 @@ Q_OBJECT
 public:
 	Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, const QString& jexiaSecret);
 	
-	void uploadFiles();
+	void uploadFiles(size_t filesize, size_t filecount = 1);
 	
 	// General HTTP GET infra
 	void run();
@@ -41,4 +41,7 @@ private:
 	void post(const QString& path, const QByteArray& data, std::function<void(QNetworkReply*)> replyParser);
 
 	void process();
+	
+	QString randomString(size_t length);
+	QByteArray randomByteArray(size_t size);
 };

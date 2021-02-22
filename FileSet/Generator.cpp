@@ -40,6 +40,7 @@ void Generator::process()
 	auto f = _workQueue.front();
 	_workQueue.pop_front();
 	f();
+	QTimer::singleShot(0, [&] { process(); });
 }
 
 void Generator::authenticate()
@@ -68,10 +69,17 @@ void Generator::authenticate()
 		_refreshToken = object.value("refresh_token").toString();
 		if(_accessToken.isEmpty() || _refreshToken.isEmpty())
 			throw std::runtime_error("One of the tokens is empty");
-		
-		// The next step
-		process();
 	});
+}
+
+QString Generator::randomString(size_t length)
+{
+	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
+	
+	QString result;
+	for(size_t i=0; i < length; i++)
+		result.append(base36[_randomGenerator.bounded(0, 35)]);
+	return result;
 }
 
 void Generator::get(const QString& path, std::function<void(QNetworkReply*)> replyParser)
@@ -156,4 +164,42 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 		}
 		replyParser(reply);
 	});
+}
+
+void Generator::uploadFiles(size_t filesize, size_t filecount)
+{
+	_workQueue.emplace_back([&] {
+		std::cout << "UploadFilesJob started" << std::endl;
+		const QString r = randomString(8);
+		const QByteArray data = randomByteArray(filesize);
+		for(size_t i=0; i < 10 ;i++) {
+			const QString filename = "Generator_" + r + "_" + QString::number(i);
+			post("/fs/" + filename, data, [&] (QNetworkReply*) {
+				std::cout << "UploadFilesJob: " << i << std::endl;
+			});
+		}
+		std::cout << "UploadFilesJob completed" << std::endl << std::flush;
+	});
+	std::cout << "Upload files job (" << filesize << ", " << filecount << ") added" << std::endl << std::flush;
+}
+
+QByteArray Generator::randomByteArray(size_t size)
+{
+	std::mt19937_64 gen(_randomGenerator.generate64());
+	std::uniform_int_distribution<uint64_t> dis;
+	QByteArray result;
+	result.resize(size);
+	
+	uint64_t p = 0;
+	uint64_t temp;
+	while((p + 7) < size) {
+		temp = dis(gen);
+		memcpy(result.data() + p, &temp, 8);
+		p += 8;
+	}
+	if(p < size) {
+		temp = dis(gen);
+		memcpy(result.data() + p, &temp, size - p);
+	}
+	return result;
 }
