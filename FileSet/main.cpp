@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <QCommandLineParser>
 //
-// The GreenBites dataset generator
+// The GreenBites fileset generator
 //
 int main(int argc, char**argv)
 {
@@ -14,21 +14,9 @@ int main(int argc, char**argv)
 	QCommandLineParser clParser;
 	clParser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
 	
-	QCommandLineOption createPartnersArg(
-				"createpartners", "Create more partners!");
-	clParser.addOption(createPartnersArg);
-
-	QCommandLineOption getProductsArg(
-				"getproducts", "List the products!");
-	clParser.addOption(getProductsArg);
-
-	QCommandLineOption createProductsArg(
-				"createproducts", "Create more products!", "count");
-	clParser.addOption(createProductsArg);
-
-	QCommandLineOption deleteAllProductsArg(
-				"deleteAllProducts", "Delete all products from the dataset");
-	clParser.addOption(deleteAllProductsArg);
+	QCommandLineOption uploadFilesArg(
+				"uploadfiles", "Upload some files", "count");
+	clParser.addOption(uploadFilesArg);
 
 	const QDateTime startTime = QDateTime::currentDateTimeUtc();
 	std::cout << "Started on " << startTime.toString().toStdString() << std::endl << std::flush;
@@ -48,25 +36,28 @@ int main(int argc, char**argv)
 	clParser.process(qapp);
 	Generator g(jexiaProjectUrl, jexiaKey, jexiaSecret);
 	
-	if(clParser.isSet(createPartnersArg)) {
-		std::cout << "Create partners job added\n";
-		g.createPartners(10);
-	}
-	if(clParser.isSet(getProductsArg)) {
-		std::cout << "Get products job added\n";
-		g.getProducts();
-	}
-	if(clParser.isSet(createProductsArg)) {
+	if(clParser.isSet(uploadFilesArg)) {
+		const QString arg = clParser.value(uploadFilesArg);
 		bool ok = true;
-		const int count = clParser.value(createProductsArg).toInt(&ok);
-		if(!ok)
-			throw std::runtime_error("Could not parse count");
-		std::cout << "Create products job added (" << count << ")\n";
-		g.createProducts(count);
-	}
-	if(clParser.isSet(deleteAllProductsArg)) {
-		std::cout << "Delete all products job added\n";
-		g.deleteAllProducts();
+		size_t fileCount = 1;
+		size_t fileSize = 1048576;
+		if(arg.contains(",")) {
+			// If there is a comma, parse the file count and size
+			const QStringList args = arg.split(",");
+			fileSize = args[0].toInt(&ok);
+			if(!ok)
+				throw std::runtime_error("Could not parse file size");
+			fileSize = args[1].toInt(&ok);
+			if(!ok)
+				throw std::runtime_error("Could not parse file count");
+		} else {
+			// Just parse the file size
+			fileSize = arg.toInt(&ok);
+			if(!ok)
+				throw std::runtime_error("Could not parse file size");
+		}
+		std::cout << "Upload files job added\n";
+		g.uploadFiles(10);
 	}
 	
 	g.run();
