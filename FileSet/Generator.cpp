@@ -40,11 +40,12 @@ void Generator::process()
 	auto f = _workQueue.front();
 	_workQueue.pop_front();
 	f();
-	QTimer::singleShot(0, [&] { process(); });
 }
 
 void Generator::authenticate()
 {
+	std::cout << "Authenticating\n" << std::flush;
+
 	// Send an authentication request.
 	QJsonObject object {
 		{"method", "apk"},
@@ -69,6 +70,8 @@ void Generator::authenticate()
 		_refreshToken = object.value("refresh_token").toString();
 		if(_accessToken.isEmpty() || _refreshToken.isEmpty())
 			throw std::runtime_error("One of the tokens is empty");
+		std::cout << "Authenticated\n" << std::flush;
+		process();
 	});
 }
 
@@ -168,11 +171,11 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 
 void Generator::uploadFiles(size_t filesize, size_t filecount)
 {
-	_workQueue.emplace_back([&] {
+	_workQueue.emplace_back([&, filesize, filecount] {
 		std::cout << "UploadFilesJob started" << std::endl;
 		const QString r = randomString(8);
 		const QByteArray data = randomByteArray(filesize);
-		for(size_t i=0; i < 10 ;i++) {
+		for(size_t i=0; i < filecount ;i++) {
 			const QString filename = "Generator_" + r + "_" + QString::number(i);
 			post("/fs/" + filename, data, [&] (QNetworkReply*) {
 				std::cout << "UploadFilesJob: " << i << std::endl;
@@ -185,6 +188,8 @@ void Generator::uploadFiles(size_t filesize, size_t filecount)
 
 QByteArray Generator::randomByteArray(size_t size)
 {
+	return QByteArray(size, size);
+
 	std::mt19937_64 gen(_randomGenerator.generate64());
 	std::uniform_int_distribution<uint64_t> dis;
 	QByteArray result;

@@ -56,7 +56,6 @@ int main(int argc, char**argv)
 			if(!ok)
 				throw std::runtime_error("Could not parse file size");
 		}
-		std::cout << "Upload files job added\n";
 		g.uploadFiles(filesize, filecount);
 	}
 	
