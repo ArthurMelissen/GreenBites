@@ -171,6 +171,9 @@ void Generator::post(const QString& path, const QByteArray& data, std::function<
 
 void Generator::uploadFiles(size_t filesize, size_t filecount)
 {
+	// description=
+	// file=
+	
 	_workQueue.emplace_back([&, filesize, filecount] {
 		std::cout << "UploadFilesJob started" << std::endl;
 		const QString r = randomString(8);
