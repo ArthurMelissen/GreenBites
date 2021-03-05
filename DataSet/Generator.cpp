@@ -105,7 +105,7 @@ void Generator::authenticate()
 
 void Generator::get(const QString& path, std::function<void(QNetworkReply*)> replyParser)
 {
-	QThread::msleep(200);
+//	QThread::msleep(200);
 	
 	QNetworkRequest request(_jexiaProjectUrl + path);
 	request.setRawHeader("Authorization", "Bearer " + _accessToken.toUtf8());
