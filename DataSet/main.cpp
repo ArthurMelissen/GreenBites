@@ -22,6 +22,10 @@ int main(int argc, char**argv)
 				"getproducts", "List the products!");
 	clParser.addOption(getProductsArg);
 
+	QCommandLineOption getProductsCountArg(
+				"getproductscount", "Get the number of products");
+	clParser.addOption(getProductsCountArg);
+
 	QCommandLineOption createProductsArg(
 				"createproducts", "Create more products!", "count");
 	clParser.addOption(createProductsArg);
@@ -59,6 +63,11 @@ int main(int argc, char**argv)
 			throw std::runtime_error("Could not parse repetitions");
 		std::cout << "Set repetitions to " << count << "\n";
 		g.setRepetitions(count);
+	}
+
+	if(clParser.isSet(getProductsCountArg)) {
+		std::cout << "Get products count job added\n";
+		g.getProductsCount();
 	}
 	if(clParser.isSet(createPartnersArg)) {
 		std::cout << "Create partners job added\n";

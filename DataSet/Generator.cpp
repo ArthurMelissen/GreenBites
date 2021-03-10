@@ -41,6 +41,11 @@ void Generator::getProducts()
 	_workQueue.emplace_back([&] { getProductsJob(); });
 }
 
+void Generator::getProductsCount()
+{
+	_workQueue.emplace_back([&] { getProductsCountJob(); });
+}
+
 void Generator::createPartners(size_t count)
 {
 	_workQueue.emplace_back([&] { createPartnersJob(count); });
@@ -198,6 +203,17 @@ void Generator::getProductsJob()
 		std::cout << "========= Parsed products ========= " << _products.size() << std::endl << std::flush;
 		for(auto& p: _products)
 			p.print();
+		process();
+	});
+}
+
+void Generator::getProductsCountJob()
+{
+	const QString parameters = QString::fromUtf8(QByteArray("[{\"elementcount\": \"count(id)\"}]").toPercentEncoding());
+
+	get("/ds/products?outputs=" + parameters, [&] (QNetworkReply* reply) {
+		const QString r = QString::fromUtf8(reply->readAll());
+		std::cout << "Get products count response: " << r.toStdString() << "END response\n";
 		process();
 	});
 }

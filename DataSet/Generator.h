@@ -15,6 +15,7 @@ public:
 	
 	void setRepetitions(size_t count);
 	void getProducts();
+	void getProductsCount();
 	void createPartners(size_t count);
 	void createProducts(size_t count);
 	void deleteAllProducts();
@@ -97,6 +98,7 @@ private:
 	// Model specific getters
 	void getPartners();
 	void getProductsJob();
+	void getProductsCountJob();
 	void deleteAllProductsJob();
 	void getPackageTypes();
 	void getPackages();
