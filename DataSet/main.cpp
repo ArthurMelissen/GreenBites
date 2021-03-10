@@ -30,6 +30,10 @@ int main(int argc, char**argv)
 				"deleteAllProducts", "Delete all products from the dataset");
 	clParser.addOption(deleteAllProductsArg);
 
+	QCommandLineOption repetitionsArg(
+				"reps", "Repetitions", "count");
+	clParser.addOption(repetitionsArg);
+
 	const QDateTime startTime = QDateTime::currentDateTimeUtc();
 	std::cout << "Started on " << startTime.toString().toStdString() << std::endl << std::flush;
 	auto env = QProcessEnvironment::systemEnvironment();
@@ -48,6 +52,14 @@ int main(int argc, char**argv)
 	clParser.process(qapp);
 	Generator g(jexiaProjectUrl, jexiaKey, jexiaSecret);
 	
+	if(clParser.isSet(repetitionsArg)) {
+		bool ok = true;
+		const int count = clParser.value(repetitionsArg).toInt(&ok);
+		if(!ok)
+			throw std::runtime_error("Could not parse repetitions");
+		std::cout << "Set repetitions to " << count << "\n";
+		g.setRepetitions(count);
+	}
 	if(clParser.isSet(createPartnersArg)) {
 		std::cout << "Create partners job added\n";
 		g.createPartners(10);

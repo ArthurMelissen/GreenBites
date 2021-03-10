@@ -13,6 +13,7 @@ Q_OBJECT
 public:
 	Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, const QString& jexiaSecret);
 	
+	void setRepetitions(size_t count);
 	void getProducts();
 	void createPartners(size_t count);
 	void createProducts(size_t count);
@@ -74,6 +75,7 @@ private:
 	QString _accessToken;
 	QString _refreshToken;
 	
+	size_t _repetitions = 1;
 	std::vector<Partner> _partners;
 	std::vector<Product> _products;
 	std::vector<PackageType> _packageTypes;

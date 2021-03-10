@@ -8,3 +8,5 @@ SOURCES = main.cpp Generator.cpp
 
 CONFIG += static
 
+QMAKE_CXXFLAGS += -O3
+

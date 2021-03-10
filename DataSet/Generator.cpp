@@ -14,13 +14,13 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 , _jexiaKey(jexiaKey)
 , _jexiaSecret(jexiaSecret)
 , _randomGenerator(QRandomGenerator::securelySeeded())
-{ 
+{
 //	void QNetworkAccessManager::authenticationRequired(QNetworkReply *reply, QAuthenticator *authenticator)
 
 	QObject::connect(&_nam, &QNetworkAccessManager::authenticationRequired, [] {
 		std::cout << "QNetworkAccessManager::authenticationRequired - 100" << std::endl << std::flush;
 	});
-	
+
 	_workQueue = {
 		[&] { authenticate(); },
 		[&] { getPartners(); },
@@ -29,6 +29,11 @@ Generator::Generator(const QString& jexiaProjectUrl, const QString& jexiaKey, co
 		[&] { getPackages(); },
 		[&] { getShipments(); }
 	};
+}
+
+void Generator::setRepetitions(size_t count)
+{
+	_repetitions = count;
 }
 
 void Generator::getProducts()
@@ -43,7 +48,8 @@ void Generator::createPartners(size_t count)
 
 void Generator::createProducts(size_t count)
 {
-	_workQueue.emplace_back([&, count] { createProductsJob(count); });
+	for(size_t i = 0; i < _repetitions; i++)
+		_workQueue.emplace_back([&, count] { createProductsJob(count); });
 }
 
 void Generator::deleteAllProducts()
@@ -123,6 +129,7 @@ void Generator::get(const QString& path, std::function<void(QNetworkReply*)> rep
 			std::cout << QString::fromUtf8(reply->readAll()).toStdString() << std::endl << std::flush;
 			const QString errorString = reply->errorString();
 			const auto s = "HTTP GET Request failed (" + QString::number(reply->error()) + "): " + errorString;
+			std::cout << "Status code: " << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() <<"\n";
 			throw std::runtime_error(s.toStdString());
 		}
 		replyParser(reply);
@@ -328,10 +335,10 @@ void Generator::createPartnersJob(size_t count)
 
 void Generator::createProductsJob(size_t count)
 {
-	std::cout << "Creating new products " << count << "\n" << std::flush;
-	
 	static const QString base36 = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
+	std::cout << "Creating " << count << " new products\n" << std::flush;
+
 	if(_products.size() < _targetProductsSize) {
 		const auto generateProduct = [&] {
 			QString name;
@@ -339,7 +346,7 @@ void Generator::createProductsJob(size_t count)
 				name.append(base36[_randomGenerator.bounded(0, 35)]);
 			return QJsonObject {{"name", name}};
 		};
-	
+
 		QByteArray data;
 		if(count == 1) {
 			data = QJsonDocument(generateProduct()).toJson();
@@ -349,7 +356,7 @@ void Generator::createProductsJob(size_t count)
 				array.append(generateProduct());
 			data = QJsonDocument(array).toJson();
 		}
-		
+
 //		std::cout << QString::fromUtf8(data).toStdString() << "\n" << std::flush;
 		post("/ds/products", data, [&] (QNetworkReply* reply) {
 			std::cout << "__________ Finished  ______________" << std::endl;
